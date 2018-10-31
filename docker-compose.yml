@@ -11,18 +11,21 @@ services:
   #selenium-chrome equivalent to manually running the command docker run -d --link selenium-hub:hub -P --name chrome selenium/node-chrome-debug
   selenium-chrome:
     image: selenium/node-chrome-debug
-    environment:
-      - NODE_MAX_INSTANCES=5
-      - NODE_MAX_SESSION=5
     restart: always
     stdin_open: true
+    links:
+    - selenium-hub:hub
     environment:
+      NODE_MAX_INSTANCES: 5
+      NODE_MAX_SESSION: 5
       HUB_HOST: selenium-hub
 
   #selenium-firefox equivalent to manually running the command docker run -d --link selenium-hub:hub -P --name firefox selenium/node-firefox-debug
   selenium-firefox:
     image: selenium/node-firefox-debug
     restart: always
+    links:
+    - selenium-hub:hub
     environment:
       HUB_HOST: selenium-hub
 
